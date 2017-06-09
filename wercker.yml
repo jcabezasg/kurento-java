@@ -46,12 +46,12 @@ build:
     - script:
        name: Maven build of Kurento project inside container and non-ui tests run using MongoDB Database
        code: mvn --settings opt/kurento-settings-tfg-wercker.xml clean test -Pdefault -U -Dhttp.port=8787 -Djava.security.egd=file:/dev/./urandom -Drepository.mongodb.urlConn="$MONGO_PORT_27017_TCP_ADDR"
-    #- script:
-    #   name: Interim command between Maven builds 
-    #   code: echo "************************* Non-UI tests completed, now starting the Maven build to deploy Archiva artifacts *************************" 
-    #- script:
-    #   name: Maven build of Kurento project inside container deploying artifacts to Archiva
-    #   code: mvn --settings opt/kurento-settings-tfg-wercker.xml clean package org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -Pdeploy -Dmaven.test.skip=true -#Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -e -DaltDeploymentRepository=kurento-snapshots::default::http://$ARCHIVA:8080/repository/#snapshots/ 
+    - script:
+       name: Interim command between Maven builds 
+       code: echo "************************* Non-UI tests completed, now starting the Maven build to deploy Archiva artifacts *************************" 
+    - script:
+       name: Maven build of Kurento project inside container deploying artifacts to Archiva
+       code: mvn --settings opt/kurento-settings-tfg-wercker.xml clean package org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -Pdeploy -Dmaven.test.skip=true -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -e -DaltDeploymentRepository=kurento-snapshots::default::http://$ARCHIVA:8080/repository/snapshots/ 
 
 #Artifacts_Check:
 
