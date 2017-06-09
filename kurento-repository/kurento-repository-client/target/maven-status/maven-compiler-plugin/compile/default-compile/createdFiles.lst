@@ -1,0 +1,7 @@
+org/kurento/repository/RepositoryClient.class
+org/kurento/repository/RepositoryClientProvider.class
+org/kurento/repository/service/pojo/RepositoryItemEndpoint.class
+org/kurento/repository/RepositoryUrlLoader.class
+org/kurento/repository/service/pojo/RepositoryItemPlayer.class
+org/kurento/repository/RepositoryUrlProvider.class
+org/kurento/repository/service/pojo/RepositoryItemRecorder.class

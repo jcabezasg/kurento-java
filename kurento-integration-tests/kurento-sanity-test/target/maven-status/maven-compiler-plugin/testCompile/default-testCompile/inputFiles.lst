@@ -1,0 +1,4 @@
+/usr/src/kurento-java/kurento-integration-tests/kurento-sanity-test/src/test/java/org/kurento/test/sanity/PipelineTest.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-sanity-test/src/test/java/org/kurento/test/sanity/KurentoJsReleaseTest.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-sanity-test/src/test/java/org/kurento/test/sanity/KurentoJsBowerTest.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-sanity-test/src/test/java/org/kurento/test/sanity/KurentoJsBase.java

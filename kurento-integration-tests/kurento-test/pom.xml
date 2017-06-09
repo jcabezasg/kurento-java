@@ -1,0 +1,199 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.kurento</groupId>
+		<artifactId>kurento-integration-tests</artifactId>
+		<version>6.6.1</version>
+	</parent>
+
+	<artifactId>kurento-test</artifactId>
+	<packaging>jar</packaging>
+
+	<name>Kurento Integration tests - Kurento Tests</name>
+	<description>
+		This project contains test cases for testing Kurento
+		Java Client and Kurento Media Server.
+	</description>
+
+	<properties>
+		<start-class>org.kurento.test.base.BrowserKurentoClientTest</start-class>
+	</properties>
+
+	<dependencies>
+		<!-- Kurento Dependencies -->
+		<dependency>
+			<groupId>org.kurento</groupId>
+			<artifactId>kurento-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.kurento</groupId>
+			<artifactId>kurento-repository-internal</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.kurento</groupId>
+			<artifactId>kurento-utils-js</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.kurento.module</groupId>
+			<artifactId>platedetector</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.kurento.module</groupId>
+			<artifactId>crowddetector</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.kurento.module</groupId>
+			<artifactId>chroma</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- JUnit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- Selenium -->
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-java</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>org.seleniumhq.selenium</groupId>
+					<artifactId>selenium-htmlunit-driver</artifactId>
+				</exclusion>
+				<exclusion>
+					<artifactId>netty</artifactId>
+					<groupId>io.netty</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.seleniumhq.selenium</groupId>
+			<artifactId>selenium-server</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>javax.servlet-api</artifactId>
+					<groupId>javax.servlet</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>xml-apis</groupId>
+			<artifactId>xml-apis</artifactId>
+		</dependency>
+
+		<!-- JMeter -->
+		<dependency>
+			<groupId>com.lazerycode.jmeter</groupId>
+			<artifactId>jmeter-maven-plugin</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>backport-util-concurrent</artifactId>
+					<groupId>backport-util-concurrent</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.jmeter</groupId>
+			<artifactId>ApacheJMeter_core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.freemarker</groupId>
+			<artifactId>freemarker</artifactId>
+		</dependency>
+
+		<!-- OverThere -->
+		<dependency>
+			<groupId>com.xebialabs.overthere</groupId>
+			<artifactId>overthere</artifactId>
+		</dependency>
+		<!-- Spring -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<scope>compile</scope>
+		</dependency>
+
+		<!-- JFreeChart -->
+		<dependency>
+			<groupId>org.jfree</groupId>
+			<artifactId>jfreechart</artifactId>
+		</dependency>
+
+		<!-- WebDriverManager -->
+		<dependency>
+			<groupId>io.github.bonigarcia</groupId>
+			<artifactId>webdrivermanager</artifactId>
+		</dependency>
+
+		<!-- Docker -->
+		<dependency>
+			<groupId>com.github.docker-java</groupId>
+			<artifactId>docker-java</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>netty-codec-http</artifactId>
+					<groupId>io.netty</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>
+						netty-transport-native-epoll
+					</artifactId>
+					<groupId>io.netty</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>netty-handler</artifactId>
+					<groupId>io.netty</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>netty-handler-proxy</artifactId>
+					<groupId>io.netty</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+		<dependency>
+			<groupId>org.assertj</groupId>
+			<artifactId>assertj-core</artifactId>
+		</dependency>
+
+		<!-- OCR -->
+		<dependency>
+			<groupId>org.bytedeco.javacpp-presets</groupId>
+			<artifactId>tesseract</artifactId>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+					<version>${spring-boot.version}</version>
+					<configuration>
+						<mainClass>${start-class}</mainClass>
+						<layout>ZIP</layout>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>repackage</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+</project>

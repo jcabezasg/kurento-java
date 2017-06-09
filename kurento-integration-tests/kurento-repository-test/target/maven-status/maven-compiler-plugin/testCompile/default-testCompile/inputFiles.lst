@@ -1,0 +1,13 @@
+/usr/src/kurento-java/kurento-integration-tests/kurento-repository-test/src/test/java/org/kurento/repository/test/ItemsMetadataTest.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-repository-test/src/test/java/org/kurento/repository/test/TimeoutTests.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-repository-test/src/test/java/org/kurento/repository/test/FilenameAsIdTest.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-repository-test/src/test/java/org/kurento/repository/test/OneRecordingServerTest.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-repository-test/src/test/java/org/kurento/repository/test/RangeGetTest.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-repository-test/src/test/java/org/kurento/repository/test/RangePutTest.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-repository-test/src/test/java/org/kurento/repository/test/util/TestUtils.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-repository-test/src/test/java/org/kurento/repository/test/ErrorEventsTest.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-repository-test/src/test/java/org/kurento/repository/test/PlayerEventsTest.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-repository-test/src/test/java/org/kurento/repository/test/ItemManagmentTest.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-repository-test/src/test/java/org/kurento/repository/test/RepositoryItemsTest.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-repository-test/src/test/java/org/kurento/repository/test/util/BaseRepositoryTest.java
+/usr/src/kurento-java/kurento-integration-tests/kurento-repository-test/src/test/java/org/kurento/repository/test/RepositoryRestTest.java

@@ -1,0 +1,81 @@
+# Configuration file to run non-UI tests, deploy artifacts to Archiva and run artifacts checker
+# maven: 3.3-jdk-9 container will be used as a base "box" for the project
+# We have to use internal steps in order to pass the commands required for docker run
+# Archiva container will be running out of the Wercker build pipeline ( for further checks once the artifacts are deployed)
+# MongoDB container will be used as services during the build
+# VChecker container will override the main box use in a separate pipeline ( also in the build section). Reason for this is that
+# if it is used as a service, then we would have to send a message to it somehow, obligating us to implement some kind of queueing system (RabbitMQ, ZeroMQ,Avro..)
+
+
+# Specify the main box to be used
+box:
+  id: maven
+  tag: 3.3-jdk-8
+
+# Specify the services (i.e containers) that will be linked to our main box
+# Pending to include the VChecker container
+
+services:
+  - mongo:latest
+  
+# Build process. Specify as many steps as required.
+
+build:
+
+ steps:
+    - script:
+       name: Show current working folder 
+       code: echo $PWD
+    - script:
+       name: Create OPT folder and copy xml file into that folder
+       code: mkdir opt | cp kurento-settings-tfg-wercker.xml ./opt
+    - script:
+       name: Show current folder contents (host's source code is injected to the /pipeline/source)
+       code: ls -la
+    - script:
+       name: Show "OPT" folder contents to confirm that the xml file is in there
+       code: ls opt
+    - script:
+       name: Check the environment variables automatically exposed to the main container 
+       code: env
+    - script:
+       name: Check Maven version
+       code: mvn --version
+
+
+    - script:
+       name: Maven build of Kurento project inside container and non-ui tests run using MongoDB Database
+       code: mvn --settings opt/kurento-settings-tfg-wercker.xml clean test -Pdefault -U -Dhttp.port=8787 -Djava.security.egd=file:/dev/./urandom -Drepository.mongodb.urlConn="$MONGO_PORT_27017_TCP_ADDR"
+    #- script:
+    #   name: Interim command between Maven builds 
+    #   code: echo "************************* Non-UI tests completed, now starting the Maven build to deploy Archiva artifacts *************************" 
+    #- script:
+    #   name: Maven build of Kurento project inside container deploying artifacts to Archiva
+    #   code: mvn --settings opt/kurento-settings-tfg-wercker.xml clean package org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -Pdeploy -Dmaven.test.skip=true -#Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -e -DaltDeploymentRepository=kurento-snapshots::default::http://$ARCHIVA:8080/repository/#snapshots/ 
+
+Artifacts_Check:
+
+  box: maven:3.2.5-jdk-7
+  steps:
+    - script:
+       name: Check the environment variables automatically exposed to the main container (Artifacts Check)
+       code: env
+    - script:
+       name: Check the environment variables automatically exposed to the main container 
+       code: ls -la
+
+Slack_Notification:
+
+  box: maven:3.2.5-jdk-7
+  steps:
+    - script:
+       name: Check the environment variables automatically exposed to the main container (Slack Notification)
+       code: env
+
+Docker_Push:
+
+  box: maven:3.2.5-jdk-7
+  steps:
+    - script:
+       name: Check the environment variables automatically exposed to the main container (Docker Push)
+       code: env

@@ -1,0 +1,4 @@
+/usr/src/kurento-java/kurento-repository/kurento-repository-server/src/main/java/org/kurento/repository/KurentoRepositoryServerApp.java
+/usr/src/kurento-java/kurento-repository/kurento-repository-server/src/main/java/org/kurento/repository/ItemNotFoundException.java
+/usr/src/kurento-java/kurento-repository/kurento-repository-server/src/main/java/org/kurento/repository/RepositoryService.java
+/usr/src/kurento-java/kurento-repository/kurento-repository-server/src/main/java/org/kurento/repository/RepositoryController.java

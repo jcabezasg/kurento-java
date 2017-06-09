@@ -1,0 +1,2 @@
+/usr/src/kurento-java/kurento-jsonrpc/kurento-jsonrpc-demo-server/src/main/java/org/kurento/jsonrpc/TestServerApplication.java
+/usr/src/kurento-java/kurento-jsonrpc/kurento-jsonrpc-demo-server/src/main/java/org/kurento/jsonrpc/handler/EchoJsonRpcHandler.java

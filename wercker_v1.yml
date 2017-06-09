@@ -1,0 +1,50 @@
+# Configuration file to run non-UI tests, deploy artifacts to Archiva and run artifacts checker
+# Kurento-Java container will be used as a base "box" for the project
+# We have to use internal steps in order to pass the commands required for docker run
+# Archiva container and Vchecker container are running in the cloud, outside the Wercker build
+# Reason is that we want to be able to see the artifacts created after the Maven build
+
+
+# Specify the main box to be used
+box:
+  id: maven
+  tag: 3.2-jdk-7
+
+# Specify the services (i.e containers) that will be linked to our main box
+services:
+  - mongo:latest
+  
+# Build process. Specify as many steps as required.
+
+build:
+ steps:
+    - script:
+       name: Show current working folder 
+       code: echo $PWD
+    - script:
+       name: Create OPT folder and copy xml file into that folder
+       code: mkdir opt | cp kurento-settings-tfg-wercker.xml ./opt
+    - script:
+       name: Show current folder contents (host's source code is injected to the /pipeline/source)
+       code: ls -la
+    - script:
+       name: Show "OPT" folder contents to confirm that the xml file is in there
+       code: ls opt
+    - script:
+       name: Check the environment variables automatically exposed to the main container 
+       code: env
+    - script:
+       name: Maven build of Kurento project inside container and non-ui tests run using MongoDB Database
+       code: mvn --settings opt/kurento-settings-tfg.xml clean test -Pdefault -U -Dhttp.port=8787 -Djava.security.egd=file:/dev/./urandom -Drepository.mongodb.urlConn="$MONGO_PORT_27017_TCP_ADDR"
+    - script:
+       name: Interim command between Maven builds 
+       code: echo "************************* Non-UI tests completed, now starting the Maven build to deploy Archiva artifacts *************************" 
+    - script:
+       name: Maven build of Kurento project inside container deploying artifacts to Archiva
+       code: mvn --settings opt/kurento-settings-tfg-wercker.xml clean package org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -Pdeploy -Dmaven.test.skip=true -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -e -DaltDeploymentRepository=kurento-snapshots::default::http://$ARCHIVA/repository/snapshots/ 
+
+
+
+
+
+

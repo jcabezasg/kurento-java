@@ -1,0 +1,4 @@
+org/kurento/test/sanity/KurentoJsBase.class
+org/kurento/test/sanity/PipelineTest.class
+org/kurento/test/sanity/KurentoJsReleaseTest.class
+org/kurento/test/sanity/KurentoJsBowerTest.class
