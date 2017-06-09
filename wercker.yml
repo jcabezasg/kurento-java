@@ -28,7 +28,7 @@ build:
        code: echo $PWD
     - script:
        name: Create OPT folder and copy xml file into that folder
-       code: mkdir opt | cp kurento-settings-tfg-wercker.xml ./opt
+       code: mkdir opt | cp kurento-settings-tfg-wercker.xml $PWD/opt
     - script:
        name: Show current folder contents (host's source code is injected to the /pipeline/source)
        code: ls -la
