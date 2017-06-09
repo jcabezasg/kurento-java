@@ -55,7 +55,7 @@ build:
 
 #Artifacts_Check:
 
-#  box: maven:3.2.5-jdk-7
+#   box: maven:3.2.5-jdk-7
 #  steps:
 #   - script:
 #      name: Check the environment variables automatically exposed to the main container (Artifacts Check)
