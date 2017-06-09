@@ -53,29 +53,29 @@ build:
     #   name: Maven build of Kurento project inside container deploying artifacts to Archiva
     #   code: mvn --settings opt/kurento-settings-tfg-wercker.xml clean package org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -Pdeploy -Dmaven.test.skip=true -#Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -e -DaltDeploymentRepository=kurento-snapshots::default::http://$ARCHIVA:8080/repository/#snapshots/ 
 
-Artifacts_Check:
+#Artifacts_Check:
 
-  box: maven:3.2.5-jdk-7
-  steps:
-    - script:
-       name: Check the environment variables automatically exposed to the main container (Artifacts Check)
-       code: env
-    - script:
-       name: Check the environment variables automatically exposed to the main container 
-       code: ls -la
+#  box: maven:3.2.5-jdk-7
+#  steps:
+#   - script:
+#      name: Check the environment variables automatically exposed to the main container (Artifacts Check)
+#      code: env
+#   - script:
+#      name: Check the environment variables automatically exposed to the main container 
+#      code: ls -la
 
-Slack_Notification:
+#Slack_Notification:
 
-  box: maven:3.2.5-jdk-7
-  steps:
-    - script:
-       name: Check the environment variables automatically exposed to the main container (Slack Notification)
-       code: env
+#  box: maven:3.2.5-jdk-7
+#  steps:
+#    - script:
+#       name: Check the environment variables automatically exposed to the main container (Slack Notification)
+#       code: env
 
-Docker_Push:
+#Docker_Push:
 
-  box: maven:3.2.5-jdk-7
-  steps:
-    - script:
-       name: Check the environment variables automatically exposed to the main container (Docker Push)
-       code: env
+#  box: maven:3.2.5-jdk-7
+#  steps:
+#    - script:
+#       name: Check the environment variables automatically exposed to the main container (Docker Push)
+#       code: env
