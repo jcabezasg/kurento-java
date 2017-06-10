@@ -58,9 +58,6 @@ tests:
        name: Show current folder contents (host's source code is injected to the /pipeline/source)
        code: ls -la
    - script:
-       name: Create OPT folder and copy xml file into that folder
-       code: mkdir opt | cp kurento-settings-tfg.xml $PWD/opt
-   - script:
        name: Maven build of Kurento project inside container and non-ui tests run using MongoDB Database
        code: mvn --settings opt/kurento-settings-tfg-wercker.xml clean test -Pdefault -U -Dhttp.port=8787 -Djava.security.egd=file:/dev/./urandom -Drepository.mongodb.urlConn="$MONGO_PORT_27017_TCP_ADDR"
    - script:
