@@ -33,12 +33,6 @@ build:
        name: Check Maven version
        code: mvn --version
 
- after-steps:
-     - slack-notifier:
-        url: $SLACK_URL
-        channel : docker-build-tools
-        username: wercker
-
 tests:
 
 # Specify the box to be used in this pipeline
@@ -52,50 +46,18 @@ tests:
  services:
   - mongo:latest
 
- steps:
-
-   - script:
-       name: Show current folder contents (host's source code is injected to the /pipeline/source)
-       code: ls -la
-   - script:
-       name: Maven build of Kurento project inside container and non-ui tests run using MongoDB Database
-       code: mvn --settings opt/kurento-settings-tfg.xml clean test -Pdefault -U -Dhttp.port=8787 -Djava.security.egd=file:/dev/./urandom -Drepository.mongodb.urlConn="$MONGO_PORT_27017_TCP_ADDR"
-   - script:
-       name: Interim command between Maven builds
-       code: echo "************************* Non-UI tests completed, now starting the Maven build to deploy Archiva artifacts *************************" 
-
- after-steps:
-     - slack-notifier:
-        url: $SLACK_URL
-        channel : docker-build-tools
-        username: wercker
-
 deploy:
 
  box:
   id: maven
   tag: 3.3-jdk-7
 
- steps:
-  - script:
-       name: Show current folder contents (host's source code is injected to the /pipeline/source)
-       code: ls -la
-  - script:
-       name: Maven build of Kurento project inside container deploying artifacts to Archiva
-       code: mvn --settings opt/kurento-settings-tfg.xml clean package org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -Pdeploy -Dmaven.test.skip=true -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -e -DaltDeploymentRepository=kurento-snapshots::default::http://$ARCHIVA/repository/snapshots/
-
- after-steps:
-     - slack-notifier:
-        url: $SLACK_URL
-        channel : docker-build-tools
-        username: wercker
- 
-
 artifact-check:
 
  box:
   id: jcabezasg/vcheckerwercker
   tag: latest
+  entrypoint: java -jar VCheckerApp-0.0.1-SNAPSHOT-jar-wercker.jar config.json 
 
  steps:
     - script:
@@ -104,12 +66,6 @@ artifact-check:
     - script:
         name: Test after steps
         code: apt-get install -y curl
-    - script:
-       name: Change properties on JAR file 
-       code: chmod 777 VCheckerApp-0.0.1-SNAPSHOT-jar-wercker.jar
-    - script:
-       name: Execute checker
-       code: java -jar VCheckerApp-0.0.1-SNAPSHOT-jar-wercker.jar config.json
 
  after-steps:
      - slack-notifier:
