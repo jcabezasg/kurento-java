@@ -49,20 +49,21 @@ build:
     - script:
        name: Interim command between Maven builds 
        code: echo "************************* Non-UI tests completed, now starting the Maven build to deploy Archiva artifacts *************************" 
+   # - script:
+   #    name: Maven build of Kurento project inside container deploying artifacts to Archiva
+   #    code: mvn --settings opt/kurento-settings-tfg.xml clean package org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -Pdeploy -Dmaven.test.skip=true -#Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -e -DaltDeploymentRepository=kurento-snapshots::default::http://$ARCHIVA/repository/snapshots/ 
+    
+
+Artifacts_Check:
+
+   box: jcabezasg/vchecker:latest
+   steps:
     - script:
-       name: Maven build of Kurento project inside container deploying artifacts to Archiva
-       code: mvn --settings opt/kurento-settings-tfg.xml clean package org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -Pdeploy -Dmaven.test.skip=true -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -e -DaltDeploymentRepository=kurento-snapshots::default::http://$ARCHIVA/repository/snapshots/ 
-
-#Artifacts_Check:
-
-#   box: maven:3.2.5-jdk-7
-#  steps:
-#   - script:
-#      name: Check the environment variables automatically exposed to the main container (Artifacts Check)
-#      code: env
-#   - script:
-#      name: Check the environment variables automatically exposed to the main container 
-#      code: ls -la
+       name: Check the environment variables automatically exposed to the main container (Artifacts Check)
+       code: env
+    - script:
+       name: Check the environment variables automatically exposed to the main container 
+       code: ls -la
 
 #Slack_Notification:
 
