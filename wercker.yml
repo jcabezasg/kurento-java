@@ -82,7 +82,14 @@ deploy:
        code: ls -la
   - script:
        name: Maven build of Kurento project inside container deploying artifacts to Archiva
-       code: mvn --settings opt/kurento-settings-tfg.xml clean package org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -Pdeploy -Dmaven.test.skip=true -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -e -DaltDeploymentRepository=kurento-snapshots::default::http://$ARCHIVA/repository/snapshots/ 
+       code: mvn --settings opt/kurento-settings-tfg.xml clean package org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -Pdeploy -Dmaven.test.skip=true -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -e -DaltDeploymentRepository=kurento-snapshots::default::http://$ARCHIVA/repository/snapshots/
+
+ after-steps:
+     - slack-notifier:
+        url: $SLACK_URL
+        channel : docker-build-tools
+        username: wercker
+ 
 
 artifact-check:
 
@@ -104,7 +111,7 @@ artifact-check:
        name: Execute checker
        code: java -jar VCheckerApp-0.0.1-SNAPSHOT-jar-wercker.jar config.json
 
-after-steps:
+ after-steps:
      - slack-notifier:
         url: $SLACK_URL
         channel : docker-build-tools
