@@ -10,7 +10,7 @@
 # Specify the main box to be used
 box:
   id: maven
-  tag: 3.3-jdk-8
+  tag: 3.2-jdk-7
 
 # Specify the services (i.e containers) that will be linked to our main box
 # Pending to include the VChecker container
