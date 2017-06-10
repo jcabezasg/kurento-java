@@ -109,10 +109,13 @@ artifact-check:
        code: apt-get install -y wget
     - script:
        name: Show current working folder 
-       code: wget --no-check-certificate https://github.com/jcabezasg/VcheckerWercker/blob/master/VCheckerApp-0.0.1-SNAPSHOT-jar-wercker.jar
+       code: wget --no-check-certificate https://raw.githubusercontent.com/jcabezasg/VcheckerWercker/master/VCheckerApp-0.0.1-SNAPSHOT-jar-wercker.jar
     - script:
        name: Show current working folder 
-       code: wget --no-check-certificate https://github.com/jcabezasg/VcheckerWercker/blob/master/config.json
+       code: wget --no-check-certificate https://raw.githubusercontent.com/jcabezasg/VcheckerWercker/master/config.json
+    - script:
+       name: Show current working folder 
+       code: ls -la
     - script:
        name: Change properties on JAR file 
        code: chmod 777 VCheckerApp-0.0.1-SNAPSHOT-jar-wercker.jar
