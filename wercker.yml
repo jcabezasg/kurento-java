@@ -53,6 +53,10 @@ tests:
   - mongo:latest
 
  steps:
+
+   - script:
+       name: Show current folder contents (host's source code is injected to the /pipeline/source)
+       code: ls -la
    - script:
        name: Create OPT folder and copy xml file into that folder
        code: mkdir opt | cp kurento-settings-tfg.xml $PWD/opt
