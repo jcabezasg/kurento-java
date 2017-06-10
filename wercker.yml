@@ -76,7 +76,7 @@ deploy:
   id: maven
   tag: 3.3-jdk-7
 
-steps:
+ steps:
   - script:
        name: Show current folder contents (host's source code is injected to the /pipeline/source)
        code: ls -la
