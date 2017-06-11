@@ -5,13 +5,15 @@
 # MongoDB container will be used as a service during test pipeline 
 # Vcheckerwercker container will be used during the last pipeline to check artifacts stored on the different repositories under scope
 
+box:
+  id: maven
+  tag: 3.3-jdk-7
+
 build:
 
 # Specify the box to be used in this pipeline
 
- box:
-  id: maven
-  tag: 3.3-jdk-7
+ 
 
  steps:
     - script:
@@ -43,9 +45,6 @@ tests:
 
 # Specify the box to be used in this pipeline
 
- box:
-  id: maven
-  tag: 3.3-jdk-7
 
 # Specify the service (i.e container) that will be linked to our box
 
@@ -74,10 +73,6 @@ tests:
         username: wercker
 
 deploy:
-
- box:
-  id: maven
-  tag: 3.3-jdk-7
 
  steps:
   - script:
