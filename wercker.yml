@@ -47,7 +47,7 @@ tests:
   id: maven
   tag: 3.3-jdk-7
 
-# Specify the services (i.e containers) that will be linked to our box
+# Specify the service (i.e container) that will be linked to our box
 
  services:
   - mongo:latest
