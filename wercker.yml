@@ -1,8 +1,8 @@
 # Configuration wercker.yml file to run non-UI tests, deploy artifacts to Archiva and run artifacts checker
-# maven: 3.3-jdk-7 container will be used as a base "box" for the project
+# maven: 3.3-jdk-7 container will be used as a base "box" for the project in pipelines build, test and deploy
 # We have to use internal steps in order to pass the commands required for docker run
-# Archiva container will be running out of the Wercker build pipeline (for further checks once the artifacts are deployed)
-# MongoDB container will be used as services during the build
+# Archiva container will be running out of the Wercker's pipelines (for further checks of the artifacts deployed)
+# MongoDB container will be used as a service during test pipeline
 # Vcheckerwercker container will be used during the last pipeline to check artifacts stored on the different repositories under scope
 
 build:
@@ -109,19 +109,19 @@ artifact-check:
        code: apt-get install -y wget
     - script:
        name: Show current working folder 
-       code: wget --no-check-certificate https://raw.githubusercontent.com/jcabezasg/VcheckerWercker/master/VCheckerApp-0.0.1-SNAPSHOT-jar-wercker.jar
+       code: wget --no-check-certificate $URL_JAR
     - script:
        name: Show current working folder 
-       code: wget --no-check-certificate https://raw.githubusercontent.com/jcabezasg/VcheckerWercker/master/config.json
+       code: wget --no-check-certificate $URL_JSON
     - script:
        name: Show current working folder 
        code: ls -la
     - script:
        name: Change properties on JAR file 
-       code: chmod 777 VCheckerApp-0.0.1-SNAPSHOT-jar-wercker.jar
+       code: chmod 777 $JAR_NAME
     - script:
        name: Execute checker
-       code: java -jar VCheckerApp-0.0.1-SNAPSHOT-jar-wercker.jar config.json
+       code: java -jar $JAR_NAME $JSON_NAME
 
  after-steps:
      - slack-notifier:
