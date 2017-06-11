@@ -81,6 +81,9 @@ deploy:
        name: Show current folder contents (host's source code is injected to the /pipeline/source)
        code: ls -la
   - script:
+       name: Check the environment variables automatically exposed to the main container 
+       code: env
+  - script:
        name: Maven build of Kurento project injected in container deploying artifacts to Archiva
        code: mvn --settings opt/kurento-settings-tfg-wercker.xml clean package org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -Pdeploy -Dmaven.test.skip=true -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -e -DaltDeploymentRepository=kurento-snapshots::default::http://$ARCHIVA/repository/snapshots/
 
