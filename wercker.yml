@@ -58,6 +58,9 @@ tests:
        name: Show current folder contents (host's source code is injected to the /pipeline/source)
        code: ls -la
    - script:
+       name: Show "OPT" folder contents to confirm that the xml file is in there
+       code: ls opt
+   - script:
        name: Maven build of Kurento project file injected in container and non-ui tests run using MongoDB Database
        code: mvn --settings opt/kurento-settings-tfg-wercker.xml clean test -Pdefault -U -Dhttp.port=8787 -Djava.security.egd=file:/dev/./urandom -Drepository.mongodb.urlConn="$MONGO_PORT_27017_TCP_ADDR"
    - script:
@@ -80,6 +83,9 @@ deploy:
   - script:
        name: Show current folder contents (host's source code is injected to the /pipeline/source)
        code: ls -la
+  - script:
+       name: Show "OPT" folder contents to confirm that the xml file is in there
+       code: ls opt
   - script:
        name: Check the environment variables automatically exposed to the main container 
        code: env
