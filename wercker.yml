@@ -30,8 +30,8 @@ build:
        name: Check the environment variables automatically exposed to the main container 
        code: env
     - script:
-       name: Check Maven version
-       code: mvn --version
+       name: Maven build of Kurento project file injected in container
+       code: mvn -Pdefault clean package -Dmaven.test.skip=true
 
  after-steps:
      - slack-notifier:
@@ -58,7 +58,7 @@ tests:
        name: Show current folder contents (host's source code is injected to the /pipeline/source)
        code: ls -la
    - script:
-       name: Maven build of Kurento project inside container and non-ui tests run using MongoDB Database
+       name: Maven build of Kurento project file injected in container and non-ui tests run using MongoDB Database
        code: mvn --settings opt/kurento-settings-tfg.xml clean test -Pdefault -U -Dhttp.port=8787 -Djava.security.egd=file:/dev/./urandom -Drepository.mongodb.urlConn="$MONGO_PORT_27017_TCP_ADDR"
    - script:
        name: Interim command between Maven builds
@@ -81,7 +81,7 @@ deploy:
        name: Show current folder contents (host's source code is injected to the /pipeline/source)
        code: ls -la
   - script:
-       name: Maven build of Kurento project inside container deploying artifacts to Archiva
+       name: Maven build of Kurento project injected in container deploying artifacts to Archiva
        code: mvn --settings opt/kurento-settings-tfg.xml clean package org.apache.maven.plugins:maven-deploy-plugin:2.8:deploy -Pdeploy -Dmaven.test.skip=true -Dmaven.wagon.http.ssl.insecure=true -Dmaven.wagon.http.ssl.allowall=true -e -DaltDeploymentRepository=kurento-snapshots::default::http://$ARCHIVA/repository/snapshots/
 
  after-steps:
@@ -102,16 +102,16 @@ artifact-check:
        name: Show current working folder 
        code: ls -la
     - script:
-        name: Test after steps
+        name: Curl installation as it is required for after-steps
         code: apt-get install -y curl
     - script:
-       name: Show current working folder 
+       name: wget installation 
        code: apt-get install -y wget
     - script:
-       name: Show current working folder 
+       name: Download of JAR file from Github 
        code: wget --no-check-certificate $URL_JAR
     - script:
-       name: Show current working folder 
+       name: Download of JSON file from Github 
        code: wget --no-check-certificate $URL_JSON
     - script:
        name: Show current working folder 
@@ -120,7 +120,7 @@ artifact-check:
        name: Change properties on JAR file 
        code: chmod 777 $JAR_NAME
     - script:
-       name: Execute checker
+       name: Execute Vchecker
        code: java -jar $JAR_NAME $JSON_NAME
 
  after-steps:
