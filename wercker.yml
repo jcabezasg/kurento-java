@@ -1,7 +1,7 @@
 # Configuration wercker.yml file to run non-UI tests, deploy artifacts to Archiva and run artifacts checker
 # maven: 3.3-jdk-7 container will be used as a base "box" for the project in pipelines build, test and deploy
 # We have to use internal steps in order to pass the commands required for docker run
-# Archiva container will be running out of the Wercker's pipelines (for further checks of the artifacts deployed)
+# Archiva container will be running out of the Wercker's pipelines (for further checks of the artifacts deployed).
 # MongoDB container will be used as a service during test pipeline.
 # Vcheckerwercker container will be used during the last pipeline to check artifacts stored on the different repositories under scope
 
